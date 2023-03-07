@@ -58,7 +58,7 @@ void Canvas::Clear()
 	{
 		for (int j = 0; j < width; j++)
 		{
-			matrix[i][j] = ' ';
+			SetPoint(i, j, ' ');
 		}
 	}
 }
