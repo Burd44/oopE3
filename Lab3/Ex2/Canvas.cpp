@@ -22,11 +22,11 @@ void Canvas::DrawCircle(int x, int y, int r, char ch)
 		{
 			if ((i - x) * (i - x) + (j - y) * (j - y) == r * r)
 				if ((i - x) * (i - x) + (j - y) * (j - y) >= r * (r - 1) && (i - x) * (i - x) + (j - y) * (j - y) <= r * (r + 1))
-					matrix[i][j] = ch;
+					SetPoint(i, j, ch);
 				else 
-					matrix[i][j] = ' ';
+					SetPoint(i, j, ' ');
 			else
-				matrix[i][j] = ' ';
+				SetPoint(i, j, ' ');
 		}
 }
 
@@ -36,19 +36,30 @@ void Canvas::FillCircle(int x, int y, int r, char ch)
 		for (int j = y - r; j <= y + r; j++)
 		{
 			if (((i - x) * (i - x) + (j - y) * (j - y) <= r * r))
-				matrix[i][j] = ch;
+				SetPoint(i, j, ch);
 		}
 }
 
 void Canvas::Print()
 {
-	for(int i=0; i<height;i++)
+	for(int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
 			printf("%c", matrix[i][j]);
 		}
 		printf("\n");
+	}
+}
+
+void Canvas::Clear()
+{
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			matrix[i][j] = ' ';
+		}
 	}
 }
 
@@ -60,7 +71,7 @@ void Canvas::DrawLine(int x1, int y1, int x2, int y2, char ch)
 	int y = y1;
 	for (int x = x1; x <= x2; x++)
 	{
-		matrix[x][y] = ch;
+		SetPoint(x, y, ch);
 		if (D > 0)
 		{
 			y = y + 1;
@@ -75,7 +86,27 @@ void Canvas::SetPoint(int i, int j, char ch)
 	matrix[i][j] = ch;
 }
 
-void Canvas::DrawRect(int l, int t, int r, int b, char ch)
+void Canvas::DrawRect(int l, int t, int r, int b, char ch) 
 {
-	DrawLine(l,r, l, r, '*');
+	for (int i = l; i <= r; i++) 
+	{
+		SetPoint(i, t, ch);
+		SetPoint(i, b, ch);
+	}
+	for (int j = t; j <= b; j++) 
+	{
+		SetPoint(l, j, ch);
+		SetPoint(r, j, ch);
+	}
+}
+
+void Canvas::FillRect(int l, int t, int r, int b, char ch) 
+{
+	for (int i = l; i <= r; i++) 
+	{
+		for (int j = t; j <= b; j++) 
+		{
+			SetPoint(i, j, ch);
+		}
+	}
 }

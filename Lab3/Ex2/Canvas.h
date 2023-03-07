@@ -12,6 +12,6 @@ public:
     void FillRect(int left, int top, int right, int bottom, char ch);
     void SetPoint(int x, int y, char ch);
     void DrawLine(int x1, int y1, int x2, int y2, char ch);
-    void Print(); // shows what was printed
-    void Clear(); // clears the canvas
+    void Print();
+    void Clear(); 
 };
